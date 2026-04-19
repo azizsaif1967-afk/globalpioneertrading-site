@@ -279,7 +279,12 @@
     border: 1px solid var(--gray-200);
     transition: all .4s var(--ease);
     overflow: hidden;
+    /* button reset */
+    font: inherit; color: inherit; text-align: left;
+    cursor: pointer; width: 100%;
+    display: block;
   }
+  .svc-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   .svc-card::after {
     content: ''; position: absolute; bottom: 0; left: 0;
     width: 100%; height: 3px; background: var(--gold);
@@ -561,6 +566,100 @@
   .wa-float:hover .wa-label { opacity: 1; transform: translateY(-50%) translateX(-4px); }
   @media(max-width: 600px){ .wa-float { width: 56px; height: 56px; } .wa-float svg { width: 28px; height: 28px; } }
 
+  /* ═══ SERVICE MODAL ═══ */
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(10,22,40,0.72);
+    backdrop-filter: blur(8px);
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s var(--ease);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.5rem;
+    overflow-y: auto;
+  }
+  .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+  .modal {
+    position: relative;
+    background: var(--white);
+    max-width: 880px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+    transform: translateY(20px) scale(0.98);
+    transition: transform .35s var(--ease);
+    margin: auto;
+  }
+  .modal-backdrop.open .modal { transform: translateY(0) scale(1); }
+  .modal-close {
+    position: absolute; top: 1.25rem; right: 1.25rem; z-index: 2;
+    width: 42px; height: 42px;
+    background: var(--white); border: 1px solid var(--gray-200);
+    color: var(--navy); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s var(--ease);
+    font: inherit;
+  }
+  .modal-close:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .modal-close svg { width: 18px; height: 18px; }
+  .modal-hero {
+    position: relative;
+    min-height: 200px; padding: 3rem 3rem 2.5rem;
+    background: var(--navy); color: var(--white);
+    overflow: hidden;
+  }
+  .modal-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0.22; filter: contrast(1.05);
+  }
+  .modal-hero > * { position: relative; z-index: 1; }
+  .modal-hero.biz::before { background-image: linear-gradient(90deg, rgba(10,22,40,0.85), rgba(10,22,40,0.4)), url('https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-05_74573b72.png'); }
+  .modal-hero.retail::before { background-image: linear-gradient(90deg, rgba(10,22,40,0.85), rgba(10,22,40,0.4)), url('https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-10_6a77e321.png'); }
+  .modal-hero.b2b::before { background-image: linear-gradient(90deg, rgba(10,22,40,0.85), rgba(10,22,40,0.4)), url('https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-13_75222ec3.png'); }
+  .modal-hero.wholesale::before { background-image: linear-gradient(90deg, rgba(10,22,40,0.85), rgba(10,22,40,0.4)), url('https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-15_dae39708.png'); }
+  .modal-hero.design::before { background-image: linear-gradient(90deg, rgba(10,22,40,0.85), rgba(10,22,40,0.4)), url('https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-17_fbe3e5b6.png'); }
+  .modal-hero.franchise::before { background-image: linear-gradient(90deg, rgba(10,22,40,0.85), rgba(10,22,40,0.4)), url('https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-21_88e876f3.png'); }
+  .modal-kicker {
+    display: inline-block;
+    padding: .4rem 1rem;
+    border: 1px solid rgba(201,168,76,0.5);
+    color: var(--gold);
+    font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 600;
+    margin-bottom: 1.25rem;
+  }
+  .modal-hero h3 { color: var(--white); font-size: clamp(1.75rem,3.5vw,2.5rem); margin: 0 0 .75rem; }
+  .modal-hero p.modal-lead { color: rgba(255,255,255,0.82); font-size: 1.05rem; max-width: 600px; }
+  .modal-body { padding: 2.5rem 3rem 3rem; }
+  .modal-body h4 {
+    font-family: 'Inter', sans-serif; font-size: .78rem;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--gold-dark); font-weight: 600;
+    margin: 2rem 0 1rem; padding-bottom: .75rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .modal-body h4:first-child { margin-top: 0; }
+  .modal-body p { color: var(--gray-600); margin-bottom: 1rem; font-size: 1rem; line-height: 1.7; }
+  .modal-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: .9rem 2rem; margin: 1rem 0; }
+  .modal-list li {
+    padding-left: 1.75rem; position: relative;
+    font-size: .95rem; color: var(--gray-800); line-height: 1.55;
+  }
+  .modal-list li::before {
+    content: ''; position: absolute; left: 0; top: .55rem;
+    width: 14px; height: 2px; background: var(--gold);
+  }
+  .modal-list li strong { color: var(--navy); font-weight: 600; display: block; margin-bottom: .2rem; font-size: .98rem; }
+  .modal-cta {
+    display: flex; flex-wrap: wrap; gap: .75rem;
+    margin-top: 2.5rem; padding-top: 2rem;
+    border-top: 1px solid var(--gray-200);
+  }
+  @media(max-width: 600px) {
+    .modal-hero { padding: 2rem 1.5rem 1.75rem; }
+    .modal-body { padding: 1.75rem 1.5rem 2rem; }
+    .modal-close { top: .75rem; right: .75rem; width: 38px; height: 38px; }
+  }
+  body.modal-open { overflow: hidden; }
+
   /* ═══ REVEAL ANIMATIONS ═══ */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -673,42 +772,42 @@
       <p class="section-sub">From business setup through store design, each capability is built to help international brands win in the Middle East's premium retail landscape.</p>
     </div>
     <div class="card-grid reveal-stagger">
-      <article class="svc-card">
+      <button class="svc-card" data-svc="biz" type="button">
         <div class="svc-num"><span>01 — Strategy</span><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg></div></div>
         <h3 class="svc-title">Business Development</h3>
         <p class="svc-desc">End-to-end solutions from concept through execution across Middle Eastern markets — market entry, licensing, and strategic partnerships.</p>
         <span class="svc-arrow">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-      </article>
-      <article class="svc-card">
+      </button>
+      <button class="svc-card" data-svc="retail" type="button">
         <div class="svc-num"><span>02 — Retail</span><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1-5h16l1 5M3 9v11a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V9M3 9h18M8 13h8"/></svg></div></div>
         <h3 class="svc-title">Retail Showrooms</h3>
         <p class="svc-desc">Representation of modern fashion brands with full support — legal rights acquisition, store setup, and curated in-store experience.</p>
         <span class="svc-arrow">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-      </article>
-      <article class="svc-card">
+      </button>
+      <button class="svc-card" data-svc="b2b" type="button">
         <div class="svc-num"><span>03 — Sourcing</span><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8-4-8 4v10l8 4 8-4V7zM4 7l8 4 8-4M12 11v10"/></svg></div></div>
         <h3 class="svc-title">B2B Sourcing</h3>
         <p class="svc-desc">Project rollout services including concept design and customised product sourcing tailored to the specific needs of each client.</p>
         <span class="svc-arrow">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-      </article>
-      <article class="svc-card">
+      </button>
+      <button class="svc-card" data-svc="wholesale" type="button">
         <div class="svc-num"><span>04 — Wholesale</span><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM3 11h18v10H3zM7 15h4"/></svg></div></div>
         <h3 class="svc-title">Wholesale Services</h3>
         <p class="svc-desc">Four specialised categories — wholesale distribution, stocklot inventory management, store interior design, and concept design.</p>
         <span class="svc-arrow">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-      </article>
-      <article class="svc-card">
+      </button>
+      <button class="svc-card" data-svc="design" type="button">
         <div class="svc-num"><span>05 — Design</span><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div></div>
         <h3 class="svc-title">Store Interiors & Concept</h3>
         <p class="svc-desc">Professional retail design using an 8-step process that takes customers from awareness, through engagement, to lasting loyalty.</p>
         <span class="svc-arrow">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-      </article>
-      <article class="svc-card">
+      </button>
+      <button class="svc-card" data-svc="franchise" type="button">
         <div class="svc-num"><span>06 — Expansion</span><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div></div>
         <h3 class="svc-title">Franchising</h3>
         <p class="svc-desc">Inbound and outbound franchise services supporting international brand expansion and master franchise acquisitions.</p>
         <span class="svc-arrow">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-      </article>
+      </button>
     </div>
   </div>
 </section>
@@ -921,6 +1020,21 @@
   </div>
 </footer>
 
+<!-- SERVICE MODAL -->
+<div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-hero" id="modal-hero">
+      <div class="modal-kicker" id="modal-kicker"></div>
+      <h3 id="modal-title"></h3>
+      <p class="modal-lead" id="modal-lead"></p>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
 <!-- FLOATING WHATSAPP -->
 <a href="https://wa.me/971544531010?text=Hello%20Global%20Pioneer%2C%20I%27d%20like%20to%20discuss..." target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
   <span class="wa-label">Chat with us · +971 54 453 1010</span>
@@ -945,6 +1059,167 @@
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
   document.querySelectorAll('.reveal, .reveal-stagger, .hero').forEach(el => io.observe(el));
+
+  /* ─── SERVICE MODAL ─── */
+  const SERVICES = {
+    biz: {
+      kicker: '01 — Business Development',
+      title: 'Business Development',
+      lead: 'End-to-end business solutions — from market concept through licensed execution across the Middle East.',
+      sections: [
+        { h: 'What we do', p: 'We take international brands and founders from blank page to operating business in the Gulf. Every engagement is tailored: some clients need full turnkey entry, others need a specific capability plugged into their own team.' },
+        { h: 'Capabilities', list: [
+          ['Market entry strategy','Sizing, channel selection, competitive mapping for UAE, KSA, and Oman.'],
+          ['Company formation','Free-zone and mainland licensing, commercial registrations, visa support.'],
+          ['Legal & regulatory','Trademark protection, distribution agreements, import/export compliance.'],
+          ['Strategic partnerships','Introductions to landlords, distributors, retail groups, and capital partners.'],
+          ['Operations setup','Bank accounts, VAT registration, logistics, ERP and POS selection.'],
+          ['Growth advisory','Ongoing board-level advice through the first 24 months of operation.'],
+        ]},
+        { h: 'Who this is for', p: 'International brands entering the Middle East for the first time, regional groups launching a new concept, and investors deploying capital into retail or F&B in the Gulf.' },
+      ],
+    },
+    retail: {
+      kicker: '02 — Retail Showrooms',
+      title: 'Retail Showrooms',
+      lead: 'We represent modern fashion and lifestyle brands across the region — from legal rights acquisition through the opening of the physical showroom floor.',
+      sections: [
+        { h: 'What we do', p: 'We acquire regional rights to international brands and build the retail footprint on the ground — sourcing locations, designing interiors, staffing stores, and running day-one operations.' },
+        { h: 'The full stack', list: [
+          ['Brand rights acquisition','Master franchise, distribution, or exclusive rights negotiated directly with brand owners.'],
+          ['Site selection','Tier-1 mall and high-street leasing across Dubai, Abu Dhabi, Riyadh, Jeddah, and Muscat.'],
+          ['Store design & fit-out','Full shop-in-shop and flagship rollouts, aligned with each brand\u2019s global CI.'],
+          ['Visual merchandising','Planograms, window schemes, and seasonal refreshes.'],
+          ['Staffing & training','Store managers, sales consultants, and customer experience training.'],
+          ['Retail operations','POS, inventory, loss prevention, CRM, and performance reporting.'],
+        ]},
+        { h: 'Current portfolio', p: 'LE PEARL Fashion, YOYOSO, Habits, and a growing roster of ready-to-wear, lifestyle, and accessory brands across the UAE.' },
+      ],
+    },
+    b2b: {
+      kicker: '03 — B2B Sourcing',
+      title: 'B2B Sourcing',
+      lead: 'Project rollout services including concept design and customised product sourcing — tailored to the specific needs of each client.',
+      sections: [
+        { h: 'What we do', p: 'When you need a specific product — at the right margin, quality, and lead time — we design it, source it, QC it, and deliver it. Useful for store fit-outs, private-label ranges, premium gifting, and hospitality projects.' },
+        { h: 'Scope of service', list: [
+          ['Concept & product design','Sketch, render, and spec sheet development with your brand language.'],
+          ['Supplier identification','Vetted factories across China, India, Turkey, and Southeast Asia.'],
+          ['Sampling & approvals','Multiple rounds of samples, physical and digital proofs.'],
+          ['Quality control','On-site factory audits, in-line QC, and pre-shipment inspections.'],
+          ['Customisation','Colour, material, branding, and packaging tailored to each order.'],
+          ['Logistics & delivery','Freight consolidation, customs clearance, last-mile to your site.'],
+        ]},
+        { h: 'Typical projects', p: 'Retail store fit-outs, private-label fashion programs, premium corporate gifting, hospitality furniture packages, and promotional campaigns.' },
+      ],
+    },
+    wholesale: {
+      kicker: '04 — Wholesale Services',
+      title: 'Wholesale Services',
+      lead: 'Four specialised categories — wholesale distribution, stocklot inventory management, store interior design, and concept design.',
+      sections: [
+        { h: 'Four pillars', list: [
+          ['Wholesale distribution','We distribute branded fashion, lifestyle, and home goods across UAE, KSA, and Oman — B2B channels, multi-brand retailers, and online partners.'],
+          ['Stocklot inventory','End-of-season and overstock inventory management for brands exiting the region or rebalancing stock across markets.'],
+          ['Store interior design','Full design-and-build for owned and partner stores, coordinated with the brand\u2019s global identity.'],
+          ['Concept design','New retail concepts from strategy through visual identity and store prototype.'],
+        ]},
+        { h: 'How we work', p: 'Brands retain control of identity and pricing; we handle inventory, fulfilment, invoicing, and retail relationships. Fully-consigned and outright-purchase models are both available.' },
+      ],
+    },
+    design: {
+      kicker: '05 — Store Interiors & Concept',
+      title: 'Store Interiors & Concept',
+      lead: 'Professional retail design using our 8-step process — taking customers from awareness, through engagement, to lasting loyalty.',
+      sections: [
+        { h: 'The 8-step process', list: [
+          ['01 — Awareness','Exterior, façade, and signage design that earns a first glance.'],
+          ['02 — Invitation','Window schemes and entrance zones that convert glance into entry.'],
+          ['03 — Discovery','Layouts and sightlines that guide customers through the store story.'],
+          ['04 — Engagement','Product zones, fixturing, and material choices that invite touch.'],
+          ['05 — Conversion','Fitting rooms, service points, and POS areas designed for the close.'],
+          ['06 — Experience','Lighting, sound, and scent that make the visit memorable.'],
+          ['07 — Retention','CRM and loyalty touchpoints built into the floor, not bolted on.'],
+          ['08 — Advocacy','Moments and details that customers photograph and share.'],
+        ]},
+        { h: 'Deliverables', p: 'Concept boards, CAD drawings, 3D renders, material libraries, fixture specifications, lighting plans, and a complete fit-out tender package. We can also manage the full fit-out contractor on your behalf.' },
+      ],
+    },
+    franchise: {
+      kicker: '06 — Franchising',
+      title: 'Franchising',
+      lead: 'Inbound and outbound franchise services — supporting international brand expansion into the Gulf, and master franchise acquisitions for regional operators.',
+      sections: [
+        { h: 'Inbound franchising', p: 'We bring international brands into the Middle East under master franchise, area development, or unit franchise structures. We negotiate terms, handle the legal work, and operate the stores.' },
+        { h: 'Outbound franchising', p: 'We help regional brands build a franchise system and expand into new markets — GCC, wider Middle East, South Asia, and Africa.' },
+        { h: 'Support services', list: [
+          ['FDD & legal documentation','Franchise disclosure documents, master franchise agreements, operations manuals.'],
+          ['Territory analysis','Market sizing, unit economics, and development schedules by territory.'],
+          ['Training & operations','Pre-opening and ongoing franchisee training, field support, audit visits.'],
+          ['Marketing support','Regional marketing funds, campaign development, digital activation.'],
+          ['Supply chain','Centralised sourcing of equipment, uniforms, consumables, and inventory.'],
+          ['Performance management','KPIs, benchmarking, and renewal/termination oversight.'],
+        ]},
+      ],
+    },
+  };
+
+  const modal = document.getElementById('modal');
+  const modalClose = document.getElementById('modal-close');
+  const modalHero = document.getElementById('modal-hero');
+  const modalKicker = document.getElementById('modal-kicker');
+  const modalTitle = document.getElementById('modal-title');
+  const modalLead = document.getElementById('modal-lead');
+  const modalBody = document.getElementById('modal-body');
+  let lastFocus = null;
+
+  function openModal(key) {
+    const data = SERVICES[key]; if (!data) return;
+    lastFocus = document.activeElement;
+    modalKicker.textContent = data.kicker;
+    modalTitle.textContent = data.title;
+    modalLead.textContent = data.lead;
+    modalHero.className = 'modal-hero ' + key;
+
+    let html = '';
+    data.sections.forEach(s => {
+      html += '<h4>' + s.h + '</h4>';
+      if (s.p) html += '<p>' + s.p + '</p>';
+      if (s.list) {
+        html += '<ul class="modal-list">';
+        s.list.forEach(item => {
+          html += '<li><strong>' + item[0] + '</strong>' + item[1] + '</li>';
+        });
+        html += '</ul>';
+      }
+    });
+    html += '<div class="modal-cta">';
+    html += '<a href="#contact" class="btn btn-primary" data-close-modal>Get in touch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>';
+    html += '<a href="https://wa.me/971544531010?text=Hi%20Global%20Pioneer%2C%20I%27d%20like%20to%20know%20more%20about%20' + encodeURIComponent(data.title) + '" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff" data-close-modal>WhatsApp us</a>';
+    html += '</div>';
+    modalBody.innerHTML = html;
+
+    modal.classList.add('open');
+    document.body.classList.add('modal-open');
+    setTimeout(() => modalClose.focus(), 50);
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+    if (lastFocus) lastFocus.focus();
+  }
+
+  document.querySelectorAll('.svc-card[data-svc]').forEach(card => {
+    card.addEventListener('click', () => openModal(card.dataset.svc));
+  });
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+    if (e.target.closest('[data-close-modal]')) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
 </script>
 </body>
 </html>
