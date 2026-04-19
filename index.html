@@ -566,6 +566,85 @@
   .wa-float:hover .wa-label { opacity: 1; transform: translateY(-50%) translateX(-4px); }
   @media(max-width: 600px){ .wa-float { width: 56px; height: 56px; } .wa-float svg { width: 28px; height: 28px; } }
 
+  /* ═══ BROCHURE BANNER ═══ */
+  .brochure-banner {
+    background: var(--navy);
+    position: relative; overflow: hidden;
+  }
+  .brochure-banner::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 80% 30%, rgba(201,168,76,0.1) 0%, transparent 45%);
+    pointer-events: none;
+  }
+  .brochure-wrap {
+    display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center;
+    position: relative; z-index: 1;
+  }
+  @media(min-width: 900px) { .brochure-wrap { grid-template-columns: 1fr 1.3fr; gap: 5rem; } }
+  .brochure-visual {
+    position: relative; max-width: 420px; margin: 0 auto;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    border: 1px solid rgba(201,168,76,0.3);
+    transform: perspective(1200px) rotateY(-6deg);
+    transition: transform .5s var(--ease);
+  }
+  .brochure-visual:hover { transform: perspective(1200px) rotateY(-2deg) translateY(-6px); }
+  .brochure-visual img { display: block; width: 100%; height: auto; }
+  .brochure-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    background: var(--gold); color: var(--navy);
+    padding: .4rem .85rem;
+    font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  }
+
+  /* ═══ LEAD FORM (gated download) ═══ */
+  .lead-form { display: flex; flex-direction: column; gap: 1.25rem; }
+  .form-field { display: flex; flex-direction: column; gap: .5rem; }
+  .form-field label {
+    font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold-dark); font-weight: 600;
+  }
+  .form-field label .req { color: #c9302c; margin-left: .2rem; }
+  .form-field input {
+    font: inherit; font-size: 1rem;
+    padding: .85rem 1rem;
+    background: var(--white); color: var(--navy);
+    border: 1px solid var(--gray-200);
+    transition: border-color .2s, box-shadow .2s;
+    width: 100%;
+  }
+  .form-field input:focus {
+    outline: none; border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+  }
+  .form-field input:invalid:not(:placeholder-shown) {
+    border-color: #c9302c;
+  }
+  .form-field .field-hint {
+    font-size: .78rem; color: var(--gray-600);
+  }
+  .form-consent {
+    display: flex; align-items: flex-start; gap: .65rem;
+    font-size: .85rem; color: var(--gray-600);
+    padding: 1rem 0 .5rem;
+  }
+  .form-consent input { margin-top: .2rem; accent-color: var(--gold); flex-shrink: 0; }
+  .form-actions {
+    display: flex; gap: .75rem; flex-wrap: wrap;
+    margin-top: .5rem; padding-top: 1.25rem;
+    border-top: 1px solid var(--gray-200);
+  }
+  .form-success {
+    display: none;
+    padding: 2rem; text-align: center;
+    border: 1px solid rgba(22,163,74,0.3);
+    background: rgba(22,163,74,0.05);
+  }
+  .form-success.show { display: block; }
+  .form-success svg { width: 48px; height: 48px; color: #16a34a; margin: 0 auto 1rem; display: block; }
+  .form-success h4 { border: none; padding: 0; color: var(--navy); margin: 0 0 .5rem; letter-spacing: 0; text-transform: none; font-size: 1.4rem; font-family: 'Playfair Display',serif; }
+  .form-success p { margin: 0 0 1.25rem; }
+
   /* ═══ SERVICE MODAL ═══ */
   .modal-backdrop {
     position: fixed; inset: 0; z-index: 200;
@@ -717,7 +796,10 @@
         Explore Services
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
-      <a href="#contact" class="btn btn-ghost">Contact Us</a>
+      <button type="button" class="btn btn-ghost" id="open-brochure">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Download Brochure
+      </button>
     </div>
   </div>
   <div class="scroll-hint">Scroll ↓</div>
@@ -930,6 +1012,27 @@
   </div>
 </section>
 
+<!-- BROCHURE DOWNLOAD BANNER -->
+<section class="brochure-banner">
+  <div class="container">
+    <div class="brochure-wrap">
+      <div class="brochure-visual">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-01_a0145279.png" alt="Global Pioneer company brochure cover" loading="lazy" />
+        <span class="brochure-badge">25 pages · PDF · 3 MB</span>
+      </div>
+      <div class="brochure-copy">
+        <div class="section-label">Company brochure</div>
+        <h2 class="section-title" style="color:var(--white)">Take our <em style="color:var(--gold)">full profile</em> with you.</h2>
+        <p style="color:rgba(255,255,255,0.78);margin-bottom:2rem;font-size:1.08rem">The complete 25-page Global Pioneer company profile — services, sectors, partner brands, franchise portfolio, and full contact details. Ideal for sharing with stakeholders.</p>
+        <button type="button" class="btn btn-primary" id="open-brochure-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download Brochure (PDF)
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT DARK -->
 <section id="contact" class="section-dark">
   <div class="container">
@@ -1019,6 +1122,58 @@
     </div>
   </div>
 </footer>
+
+<!-- BROCHURE LEAD-CAPTURE MODAL -->
+<div class="modal-backdrop" id="brochure-modal" role="dialog" aria-modal="true" aria-labelledby="brochure-title">
+  <div class="modal">
+    <button class="modal-close" id="brochure-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-hero biz">
+      <div class="modal-kicker">Company Brochure · PDF</div>
+      <h3 id="brochure-title">Download our <em style="color:var(--gold);font-style:italic">full company profile.</em></h3>
+      <p class="modal-lead">25 pages · 3 MB · Everything about Global Pioneer. Please share your details — we'll send a personal follow-up within 24 hours.</p>
+    </div>
+    <div class="modal-body">
+      <form class="lead-form" id="lead-form" novalidate>
+        <div class="form-field">
+          <label for="lf-name">Full name <span class="req">*</span></label>
+          <input type="text" id="lf-name" name="name" required placeholder="e.g. Aziz Saif" autocomplete="name" />
+        </div>
+        <div class="form-field">
+          <label for="lf-phone">Mobile (with country code) <span class="req">*</span></label>
+          <input type="tel" id="lf-phone" name="phone" required pattern="[+0-9\s\-()]{7,20}" placeholder="e.g. +971 50 123 4567" autocomplete="tel" />
+          <span class="field-hint">We'll WhatsApp you a personal follow-up. Include your country code.</span>
+        </div>
+        <div class="form-field">
+          <label for="lf-email">Email address <span class="req">*</span></label>
+          <input type="email" id="lf-email" name="email" required placeholder="e.g. you@company.com" autocomplete="email" />
+        </div>
+        <div class="form-field">
+          <label for="lf-company">Company <span style="color:var(--gray-400);font-weight:400;letter-spacing:0;text-transform:none">(optional)</span></label>
+          <input type="text" id="lf-company" name="company" placeholder="Your organisation" autocomplete="organization" />
+        </div>
+        <label class="form-consent">
+          <input type="checkbox" id="lf-consent" required />
+          <span>I agree to be contacted by Global Pioneer General Trading FZE regarding this request.</span>
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="lf-submit">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Send & Download
+          </button>
+          <button type="button" class="btn" id="lf-cancel" style="background:transparent;border-color:var(--gray-200);color:var(--gray-600)">Cancel</button>
+        </div>
+      </form>
+      <div class="form-success" id="lead-success">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        <h4>Thank you — download starting now.</h4>
+        <p>If the download didn't start, <a href="global-pioneer-brochure.pdf" download id="manual-dl" style="color:var(--gold-dark);font-weight:600">click here</a>. Our team will be in touch within 24 hours.</p>
+        <button type="button" class="btn" id="lf-done" style="background:var(--navy);color:#fff">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- SERVICE MODAL -->
 <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -1219,6 +1374,103 @@
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+
+  /* ─── BROCHURE LEAD-CAPTURE MODAL ─── */
+  const bModal = document.getElementById('brochure-modal');
+  const bClose = document.getElementById('brochure-close');
+  const bForm = document.getElementById('lead-form');
+  const bSuccess = document.getElementById('lead-success');
+  const bCancel = document.getElementById('lf-cancel');
+  const bDone = document.getElementById('lf-done');
+  let bLastFocus = null;
+
+  function openBrochure() {
+    bLastFocus = document.activeElement;
+    bForm.style.display = 'flex';
+    bSuccess.classList.remove('show');
+    bForm.reset();
+    bModal.classList.add('open');
+    document.body.classList.add('modal-open');
+    setTimeout(() => document.getElementById('lf-name').focus(), 150);
+  }
+  function closeBrochure() {
+    bModal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+    if (bLastFocus) bLastFocus.focus();
+  }
+
+  document.getElementById('open-brochure').addEventListener('click', openBrochure);
+  document.getElementById('open-brochure-2').addEventListener('click', openBrochure);
+  bClose.addEventListener('click', closeBrochure);
+  bCancel.addEventListener('click', closeBrochure);
+  bDone.addEventListener('click', closeBrochure);
+  bModal.addEventListener('click', (e) => { if (e.target === bModal) closeBrochure(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && bModal.classList.contains('open')) closeBrochure();
+  });
+
+  bForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('lf-name').value.trim();
+    const phone = document.getElementById('lf-phone').value.trim();
+    const email = document.getElementById('lf-email').value.trim();
+    const company = document.getElementById('lf-company').value.trim();
+    const consent = document.getElementById('lf-consent').checked;
+
+    // Basic validation
+    if (!name || !phone || !email || !consent) {
+      bForm.reportValidity();
+      return;
+    }
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(email)) {
+      document.getElementById('lf-email').reportValidity();
+      return;
+    }
+
+    // 1. Build lead message for WhatsApp
+    const msgLines = [
+      '*New brochure download lead*',
+      '',
+      '*Name:* ' + name,
+      '*Phone:* ' + phone,
+      '*Email:* ' + email,
+    ];
+    if (company) msgLines.push('*Company:* ' + company);
+    msgLines.push('', '_Sent via globalpioneertrading.com_');
+    const waMsg = encodeURIComponent(msgLines.join('\n'));
+    const waUrl = 'https://wa.me/971544531010?text=' + waMsg;
+
+    // 2. Build mailto (optional secondary channel — opens only if user chooses)
+    const subject = encodeURIComponent('Brochure download — ' + name);
+    const body = encodeURIComponent(msgLines.join('\n').replace(/\*/g,''));
+    const mailto = 'mailto:info@globalpioneer.xyz?subject=' + subject + '&body=' + body;
+
+    // 3. Trigger the PDF download
+    const dlLink = document.createElement('a');
+    dlLink.href = 'global-pioneer-brochure.pdf';
+    dlLink.download = 'Global-Pioneer-Company-Brochure.pdf';
+    document.body.appendChild(dlLink);
+    dlLink.click();
+    document.body.removeChild(dlLink);
+
+    // 4. Open WhatsApp in a new tab with the lead info (so GP receives the lead)
+    window.open(waUrl, '_blank', 'noopener');
+
+    // 5. Update the manual-download link so if they click, it still works
+    document.getElementById('manual-dl').setAttribute('href', 'global-pioneer-brochure.pdf');
+
+    // 6. Store locally for basic analytics (no PII leaves device beyond the above)
+    try {
+      const leads = JSON.parse(localStorage.getItem('gp_leads') || '[]');
+      leads.push({ name, phone, email, company, ts: new Date().toISOString() });
+      localStorage.setItem('gp_leads', JSON.stringify(leads));
+    } catch(_) {}
+
+    // 7. Show success state
+    bForm.style.display = 'none';
+    bSuccess.classList.add('show');
   });
 </script>
 </body>
