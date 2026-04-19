@@ -376,6 +376,81 @@
   }
   .brands-image img { width: 100%; height: auto; filter: contrast(1.05); }
 
+  /* logo showcase (GP identity / cover image) */
+  .logo-showcase {
+    max-width: 760px; margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 20px 50px rgba(10,22,40,0.06);
+    padding: 2rem;
+    position: relative;
+  }
+  .logo-showcase::before, .logo-showcase::after {
+    content: ''; position: absolute; width: 40px; height: 40px;
+    border: 2px solid var(--gold); pointer-events: none;
+  }
+  .logo-showcase::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+  .logo-showcase::after { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+  .logo-showcase img { width: 100%; height: auto; }
+
+  /* real logo strip */
+  .logo-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    border: 1px solid var(--gray-200);
+    margin-bottom: 1.5rem;
+  }
+  .logo-cell {
+    min-height: 140px;
+    padding: 2rem;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: .35rem;
+    border-right: 1px solid var(--gray-200);
+    background: var(--white);
+    transition: all .35s var(--ease);
+    text-align: center;
+  }
+  .logo-cell:last-child { border-right: none; }
+  .logo-cell:hover { background: var(--off-white); }
+  .logo-cell img { max-height: 60px; width: auto; max-width: 80%; object-fit: contain; filter: grayscale(0.2) contrast(1.05); transition: filter .3s; }
+  .logo-cell:hover img { filter: grayscale(0) contrast(1.1); }
+  .logo-cell.wordmark .wm-main {
+    font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1.55rem;
+    letter-spacing: .12em; color: var(--navy);
+  }
+  .logo-cell.wordmark .wm-main.serif { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: .02em; font-size: 1.75rem; }
+  .logo-cell.wordmark .wm-sub {
+    font-size: .72rem; color: var(--gray-600); letter-spacing: .22em; text-transform: uppercase; font-weight: 500;
+  }
+
+  /* brands showcase + tile grid */
+  .brands-showcase {
+    padding: 2.5rem;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    margin-bottom: 2rem;
+  }
+  .brands-showcase img { width: 100%; height: auto; }
+  .brands-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .brand-tile {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+    transition: all .35s var(--ease);
+  }
+  .brand-tile:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(10,22,40,0.08); border-color: var(--gold); }
+  .brand-tile img { width: 100%; height: auto; transition: transform .5s var(--ease); }
+  .brand-tile:hover img { transform: scale(1.02); }
+  .brand-tile figcaption {
+    padding: 1rem 1.5rem;
+    font-size: .78rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--navy); border-top: 1px solid var(--gray-200);
+    background: var(--off-white);
+  }
+
   /* ═══ CONTACT ═══ */
   .contact-wrap { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
   @media(min-width: 760px) { .contact-wrap { grid-template-columns: repeat(2, 1fr); } }
@@ -696,22 +771,62 @@
   </div>
 </section>
 
+<!-- BRAND IDENTITY (Global Pioneer cover) -->
+<section id="identity" class="section-muted" style="padding-top:clamp(3rem,6vw,5rem);padding-bottom:clamp(3rem,6vw,5rem)">
+  <div class="container">
+    <div class="section-head center reveal" style="margin-bottom:2.5rem">
+      <div class="section-label">Our identity</div>
+      <h2 class="section-title">The <em>Global Pioneer</em> mark.</h2>
+    </div>
+    <div class="logo-showcase reveal">
+      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-01_a0145279.png" alt="Global Pioneer General Trading FZE — official brand identity" loading="lazy" />
+    </div>
+  </div>
+</section>
+
 <!-- BRANDS -->
 <section id="brands">
   <div class="container">
     <div class="section-head reveal">
       <div class="section-label">Brand partners</div>
       <h2 class="section-title">A curated portfolio of <em>trusted names.</em></h2>
-      <p class="section-sub">We represent and partner with established international brands across fashion, lifestyle, and retail.</p>
+      <p class="section-sub">We represent and partner with established international brands across fashion, lifestyle, and retail — here are a few from our growing family.</p>
     </div>
-    <div class="brands-row reveal-stagger">
-      <div class="brand-cell"><div class="brand-name">LE PEARL</div><div class="brand-tag">Fashion</div></div>
-      <div class="brand-cell"><div class="brand-name">YOYOSO</div><div class="brand-tag">Lifestyle</div></div>
-      <div class="brand-cell"><div class="brand-name">Habits</div><div class="brand-tag">Apparel</div></div>
-      <div class="brand-cell"><div class="brand-name">10+</div><div class="brand-tag">And growing</div></div>
+    <!-- Real brand logo strip -->
+    <div class="logo-strip reveal-stagger">
+      <div class="logo-cell">
+        <img src="https://lepearlfashion.com/wp-content/uploads/2021/06/Logo-Web-min.webp" alt="LE PEARL Fashion" loading="lazy" />
+      </div>
+      <div class="logo-cell wordmark">
+        <span class="wm-main">YOYOSO</span>
+        <span class="wm-sub">韩尚优品</span>
+      </div>
+      <div class="logo-cell wordmark">
+        <span class="wm-main serif">Habits</span>
+        <span class="wm-sub">Apparel</span>
+      </div>
+      <div class="logo-cell wordmark">
+        <span class="wm-main" style="color:var(--gold-dark);font-family:'Playfair Display',serif;font-style:italic">10+ more</span>
+        <span class="wm-sub">International brands</span>
+      </div>
     </div>
-    <div class="brands-image reveal">
-      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-25_4115a6f3.png" alt="Global Pioneer franchise partner brand logos" loading="lazy" />
+
+    <div class="brands-showcase reveal">
+      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-12_fbdcfef8.png" alt="Global Pioneer franchise and retail brand partners" loading="lazy" />
+    </div>
+    <div class="brands-grid reveal-stagger">
+      <figure class="brand-tile">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-11_89c1db00.png" alt="LE PEARL and YOYOSO retail partners" loading="lazy" />
+        <figcaption>Retail Partners</figcaption>
+      </figure>
+      <figure class="brand-tile">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-16_7000c218.png" alt="LE PEARL and Habits wholesale showrooms" loading="lazy" />
+        <figcaption>Wholesale Showrooms</figcaption>
+      </figure>
+      <figure class="brand-tile">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663192358277/LWE3XfGzyiHVmudaeR9Kze/page-25_4115a6f3.png" alt="Global Pioneer franchise partner brand logos" loading="lazy" />
+        <figcaption>Franchise Network</figcaption>
+      </figure>
     </div>
   </div>
 </section>
